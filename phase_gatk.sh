@@ -33,7 +33,7 @@ OPTIONS:
 EOF
 }
 
-PARSED_OPTIONS=$(getopt -n "$0" -o hr:b:v:c:o: --long "help,ref:,bam:,vcf:,comref:,outbase:"  -- "$@")
+PARSED_OPTIONS=$(getopt -n "$0" -o htr:b:v:c:o: --long "help,tmp,ref:,bam:,vcf:,comref:,outbase:"  -- "$@")
  
 if [ $? -ne 0 ]; then exit 1; fi
 
@@ -44,10 +44,12 @@ bam=""
 vcf=""
 compref=""
 outbase=""
+tmp="1"
 
 while true; do
 	case $1 in
 		-h|--help) usage; exit 1 ;;
+		-t|--tmp) tmp="0";;
 		-r|--ref) shift; ref=$1 ;;
 		-b|--bam) shift; bam=$1 ;;
 		-v|--vcf) shift; vcf=$1 ;;
@@ -70,6 +72,9 @@ if [[ ! -x $cymt_numt_gatk ]] || [[ ! -x $phased_consensus ]] ; then
 	exit
 fi
 
+
+#Phase with GATK
+
 $GenomeAnalysisTK -T ReadBackedPhasing -R $ref -I $bam --variant $vcf -o ${vcf%.*}.phase.vcf --phaseQualityThresh 10.0
 
 $cymt_numt_gatk -i $ref -v ${vcf%.*}.phase.vcf -o $outbase
@@ -77,4 +82,9 @@ $cymt_numt_gatk -i $ref -v ${vcf%.*}.phase.vcf -o $outbase
 Rscript $phased_consensus $compref ${outbase}.phase0.txt ${outbase}.phase1.txt ${outbase}.bed $ref $outbase
 
 
+# Remove temporal files
+
+if [ $tmp == "1" ] ; then
+	rm ${outbase}.phase0.txt ${outbase}.phase1.txt ${outbase}.bed
+fi
 
