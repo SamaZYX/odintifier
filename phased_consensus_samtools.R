@@ -11,7 +11,7 @@ mask<-readDNAStringSet(args[5], format="fasta")
 mask2<-mask
 startCMP<-0
 endCMP<-0
-file.remove(paste(args[6],".choose_blocks.txt",sep=""), showWarnings=F)
+file.remove(paste(args[6],".choose_blocks.txt",sep=""))
 
 aln0 <- pairwiseAlignment(ref[[1]], mask[[1]], type="global") # Computes global alignment with Needleman-Wunsch algorithm. 
 minus<-start(insertion(aln0))
@@ -24,19 +24,8 @@ for (i in 1:length(father)){
   aln1 <- pairwiseAlignment(subseq(DNAString(as.character(pattern(aln0))),startCMP,endCMP), father[i], type="global") # Computes global alignment with Needleman-Wunsch algorithm. 
   aln2 <- pairwiseAlignment(subseq(DNAString(as.character(pattern(aln0))),startCMP,endCMP), mother[i], type="global") # Computes global alignment with Needleman-Wunsch algorithm. 
   if (score(aln1)>score(aln2)) {
-    #    mask<-replaceAt(mask,IRanges((bed[i,2]+1),father[i])) #Other way to do it for newer versions of R
-#    subseq(mask,start=start,end=end)<-father[i]
-#    subseq(mask2,start=start,end=end)<-mother[i]
-    write("father",file=paste(args[6],".choose_blocks.txt",sep=""),append=T)
+    write("0",file=paste(args[6],".choose_blocks.txt",sep=""),append=T)
   }else{
-    #    mask<-replaceAt(mask,IRanges((bed[i,2]+1),mother[i])) #Other way to do it for newer versions of R
-#    subseq(mask,start=start,end=end)<-mother[i]
-#    subseq(mask2,start=start,end=end)<-father[i]
-    write("mother",file=paste(args[6],".choose_blocks.txt",sep=""),append=T)
+    write("1",file=paste(args[6],".choose_blocks.txt",sep=""),append=T)
   }
 }
-
-#names(mask)<-args[6]
-#names(mask2)<-paste(args[6],"_NOT",sep="")
-#writeXStringSet(mask,paste(args[6],".fasta",sep=""))
-#writeXStringSet(mask2,paste(args[6],".NOT.fasta",sep=""))

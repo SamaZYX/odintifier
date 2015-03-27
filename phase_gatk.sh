@@ -79,7 +79,7 @@ $GenomeAnalysisTK -T ReadBackedPhasing -R $ref -I $bam --variant $vcf -o ${vcf%.
 
 $cymt_numt_gatk -i $ref -v ${vcf%.*}.phase.vcf -o $outbase
 
-Rscript $phased_consensus $compref ${outbase}.phase0.txt ${outbase}.phase1.txt ${outbase}.bed $ref $outbase
+Rscript $phased_consensus $compref ${outbase}.phase0.txt ${outbase}.phase1.txt ${outbase}.bed $ref $outbase.phase_gatk
 
 
 # Remove temporal files

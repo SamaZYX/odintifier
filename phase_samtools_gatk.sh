@@ -117,7 +117,7 @@ samtools index ${outbase}.merge.all.sort.bam
 
 $GenomeAnalysisTK -T UnifiedGenotyper -R $ref -I ${outbase}.merge.all.sort.bam -stand_call_conf 30.0 -stand_emit_conf 10.0 -glm SNP -dcov 300 --out ${outbase}.samtools_gatk.vcf --output_mode EMIT_VARIANTS_ONLY
 
-$phase_gatk -r $ref -b ${outbase}.merge.all.sort.bam -v ${outbase}.samtools_gatk.vcf -c $compref -o ${outbase}.phase_gatk
+$phase_gatk -r $ref -b ${outbase}.merge.all.sort.bam -v ${outbase}.samtools_gatk.vcf -c $compref -o ${outbase}.phase_samtools
 
 
 # Remove temporal files
@@ -128,6 +128,6 @@ if [ $tmp == "1" ] ; then
 	rm ${outbase}.phase1.txt ${outbase}.choose_blocks.txt ${outbase}.complement.bed ${outbase}.intersect.phase_0.bam
 	rm ${outbase}.intersect.phase_1.bam ${outbase}.intersect.merge.bam ${outbase}.intersect.merge.sort.bam good_block.*.${outbase}.intersect.bam
 	rm ${outbase}.merge.all.bam ${outbase}.new_choose_blocks.txt ${outbase}.PS_M1.phase.out ${outbase}.ref.M1.fasta
-	rm ${outbase}.phase.bam*.fasta* ${outbase}.phase_gatk.phase0.txt ${outbase}.phase_gatk.phase1.txt ${outbase}.phase_gatk.bed
+	rm ${outbase}.phase.bam*.fasta*
 fi
 
