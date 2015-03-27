@@ -9,7 +9,7 @@ GenomeAnalysisTK=""
 
 ############################
 
-path_odintifier=dirname "${BASH_SOURCE[0]}"
+path_odintifier=$(dirname "${BASH_SOURCE[0]}")
 
 if [ "$GenomeAnalysisTK" == "" ] ; then
 	echo "Add the path of GATK and odintifier in this script"
@@ -66,6 +66,7 @@ phased_consensus="${path_odintifier}/phased_consensus.R"
 
 if [[ ! -x $cymt_numt_gatk ]] || [[ ! -x $phased_consensus ]] ; then 
 	echo "Programs were not found or are not executable"
+	echo "Check $cymt_numt_gatk or $phased_consensus"
 	exit
 fi
 
