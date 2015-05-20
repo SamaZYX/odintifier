@@ -30,10 +30,11 @@ OPTIONS:
 	-v|--vcf		VCF file
 	-c|--compref		Sequence to compare the phasing blocks
 	-o|--outbase		Output prefix
+	-t|--tmp		Leave the temporal files, don't delete them
 EOF
 }
 
-PARSED_OPTIONS=$(getopt -n "$0" -o htr:b:v:c:o: --long "help,tmp,ref:,bam:,vcf:,comref:,outbase:"  -- "$@")
+PARSED_OPTIONS=$(getopt -n "$0" -o htr:b:v:c:o: --long "help,tmp,ref:,bam:,vcf:,compref:,outbase:"  -- "$@")
  
 if [ $? -ne 0 ]; then exit 1; fi
 
