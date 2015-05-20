@@ -33,7 +33,7 @@ OPTIONS:
 EOF
 }
 
-PARSED_OPTIONS=$(getopt -n "$0" -o htr:b:c:o: --long "help,tmp,ref:,bam:,comref:,outbase:"  -- "$@")
+PARSED_OPTIONS=$(getopt -n "$0" -o htr:b:c:o: --long "help,tmp,ref:,bam:,compref:,outbase:"  -- "$@")
 
 if [ $? -ne 0 ]; then exit 1; fi
 
