@@ -113,6 +113,9 @@ if nv2 < 2:
 	seqphase0.pop()
 	seqphase1.pop()
 else:
+	if int(linesplit[1])-1 != nv:
+		seqphase0[i]=seqphase0[i][:-(int(linesplit[1])-nv)]
+		seqphase1[i]=seqphase1[i][:-(int(linesplit[1])-nv)]
 	bed.write("%s\t%s\t%s\n" %(linesplit[0],start-1,nv))
 
 bed.close()
